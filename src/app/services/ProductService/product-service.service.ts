@@ -12,6 +12,6 @@ export class ProductServiceService {
   constructor(private http :HttpClient) { }
 
   getAllProduct(){
-    return this.http.get<ProductModel[]>(`${this.URL}/allProducts`);
+    return this.http.get<ProductModel[]>(`${this.URL}/api/product/all`);
   }
 }
