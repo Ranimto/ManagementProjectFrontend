@@ -1,5 +1,9 @@
+import { Role } from "./Role";
+
 export interface AuthenticationResponse {
     accessToken?: string;
-    mfaEnabled?: string;
+    refreshToken?:string;
+    tfaEnabled?: string;
     secretImageUri?: string;
+    role?: Role
   }

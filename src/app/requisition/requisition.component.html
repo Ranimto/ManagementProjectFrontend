@@ -1,1 +1,230 @@
-<p>requisition works!</p>
+<app-header></app-header>
+<app-sidebar2></app-sidebar2> 
+
+ <!--**********************************
+              Content body start
+          ***********************************-->
+         
+          <div class="content-body">
+            <div class="container-fluid mh-auto">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body px-0">
+                                <div class="table-responsive">
+                                  <button type="button" class="btn btn-success " (click)="toggleForm()"><i class='fa fa-plus'></i> Add</button>
+                                    <table class="table table-sm mb-0 table-striped student-tbl" >
+                                        <thead>
+                                            <tr >
+
+                                                
+                                                <th class="custom-column">NameRequisition</th>
+                                                <th class="custom-column">UserName</th>
+                                                <th class="custom-column">purpose</th>
+                                                <th class="custom-column">Details</th>
+                                                <th class="custom-column">requestedDate</th>
+                                                <th class="custom-column">requisitionDate</th>
+                                                <th class="custom-column">Amount</th>
+                                                <th class="custom-column">requisitionStatus</th>
+                                               
+                                                
+
+                                              
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="customers">
+
+
+                                          <tr class="btn-reveal-trigger" *ngFor="let requisition of requisitions">
+                                            
+                                            <td class="py-2">
+                                              <span *ngIf="requisition !== editingRequisition">{{ requisition.name}} </span>
+                                              <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.name"/>
+                                            </td>
+                                            <td class="py-3">
+                                              <span *ngIf="requisition !== editingRequisition">{{ requisition.purpose }}</span>
+                                              <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.purpose" />
+                                            </td>
+                                            <td class="py-3">
+                                              <span *ngIf="requisition !== editingRequisition">{{ requisition.details }}</span>
+                                              <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.details" />
+                                            </td>
+                                            <td class="py-2">
+                                              <span *ngIf="requisition !== editingRequisition">{{ requisition.amount }}</span>
+                                              <input title="r" *ngIf="requisition === editingRequisition" type="number" class="form-control" [(ngModel)]="requisition.amount" />
+                                            </td>
+                                            <td class="py-2">
+                                                <span *ngIf="requisition !== editingRequisition">{{ requisition.requestedDate | date:'yyyy-MM-dd' }} </span>
+                                                <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.requestedDate"/>
+                                              </td>
+                                              <td class="py-2">
+                                                <span *ngIf="requisition !== editingRequisition">{{ requisition.requisitionDate | date:'yyyy-MM-dd' }} </span>
+                                                <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.requisitionDate"/>
+                                              </td>
+                                              <td class="py-2">
+                                                <span *ngIf="requisition !== editingRequisition">{{ requisition.requisitionStatus}} </span>
+                                                <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.requisitionStatus"/>
+                                              </td>
+                                              <td class="py-2">
+                                                <span *ngIf="requisition !== editingRequisition">{{ requisition.user}} </span>
+                                                <input title="r" *ngIf="requisition === editingRequisition" type="text" class="form-control" [(ngModel)]="requisition.user"/>
+                                              </td>
+
+
+                                            <td>
+                                                            <a class="btn btn-primary shadow btn-xs sharp me-1" ><i class='fa fa-pencil'></i></a>
+                                                            <a class="btn btn-secondary shadow btn-xs sharp me-1" ><i class='fa fa-recycle'></i></a>
+                                                            <a  class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    
+                                      <!-- form -->
+                                      <div class="modal" [ngClass]="{ 'show': showForm }">
+                                        <div class="col-12 ">
+
+                                          <form class="card"  #addForm="ngForm" action="" id="wizard">
+                                              <div class="card-header">
+                                                  <h1 class="card-title custom-title ">Add Requisition</h1>
+                                              </div>
+                                              <div class="card-body ">
+                                               
+                                                  <div class="row form-material ">
+                                                    <div class="form-group row">
+                                                        <div class="col-md-4">
+                                                          <label class="form-label ">Name Requisition<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span></label>
+                                                          <input type="text" class="form-control" placeholder="Enter the name of Requisition.." id="nameinput" [(ngModel)]="requisition.name" required>
+
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">UserName<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span></label>
+                                                            <select class="form-control" id="name" [(ngModel)]="requisition.user" required>
+                                                                <option value="">Select a user</option>
+                                                                <option *ngFor="let user of users" [value]="user.id">
+                                                                  {{ user.firstname }} {{ user.lastname }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                          <label class="form-label">Amount<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span></label>
+                                                          <input type="number" class="form-control" placeholder="Please enter an amount.." id="amountinput" [(ngModel)]="requisition.amount" required>
+                                                        </div>
+                                                      </div>
+                                                      <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                          <label class="form-label">Details<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                          <textarea class="form-control" id="detailsinput" placeholder="Enter some details about your requisition.. " [(ngModel)]="requisition.details" required></textarea>
+                                                      </div>
+                                                      <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                        <label class="form-label">Purpose<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                        <textarea type="text" id="purposeinput" class="form-control" placeholder="Why would you like to prepare a new purchase?" [(ngModel)]="requisition.purpose" required></textarea>
+                                                    </div>
+                                                    <div class="card-body">
+                                                      <div class="row form-material">
+                                                        <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                          <label class="form-label">Requested Date<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                          <input type="text" class="form-control" placeholder="2017-06-04" id="mdate" [(ngModel)]="requisition.requestedDate" name="requestedDate" required>
+                                                        </div>
+                                                        
+                                                          <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                            <label class="form-label">Requisition Date<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                            <input type="text" class="form-control" placeholder="2017-06-04" id="mdate2" [(ngModel)]="requisition.requisitionDate" name="requisitionDate" required>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    
+                                                    
+    
+
+                                                      <div class="row">
+                                                        <div class="col">
+                                                          <button type="button" class="btn btn-warning" [disabled]="!addForm.valid" (click)="addRequisition(addForm)" >
+                                                            <i class="fa fa-plus"></i> Add
+                                                          </button>
+                                                        </div>
+                                                        <div class="col">
+                                                          <button type="button" class="btn btn-danger" (click)="CloseForm(addForm)">
+                                                           <i class="fa fa-close"></i> Close
+                                                          </button>
+                                                        </div>
+                                                      </div>
+
+
+
+
+
+                                                  </div>
+                                              </div>
+                                            </form>
+                                      </div>
+
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+           <!-- Required vendors -->
+    <script src="assets/vendor/global/global.min.js"></script>
+    <script src="assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+      <script src="assets/vendor/chart.js/Chart.bundle.min.js"></script>
+    <!-- Apex Chart -->
+    <script src="assets/vendor/apexchart/apexchart.js"></script>
+      
+    <!-- Daterangepicker -->
+    <!-- momment js is must -->
+    <script src="assets/vendor/moment/moment.min.js"></script>
+    <script src="assets/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- clockpicker -->
+    <script src="vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+    <!-- asColorPicker -->
+    <script src="assets/vendor/jquery-asColor/jquery-asColor.min.js"></script>
+    <script src="assets/vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
+    <script src="assets/vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>
+    <!-- Material color picker -->
+    <script src="assets/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- pickdate -->
+    <script src="assets/vendor/pickadate/picker.js"></script>
+    <script src="assets/vendor/pickadate/picker.time.js"></script>
+    <script src="assets/vendor/pickadate/picker.date.js"></script>
+
+    
+    <!-- Daterangepicker -->
+    <script src="assets/js/plugins-init/bs-daterange-picker-init.js"></script>
+    <!-- Clockpicker init -->
+    <script src="assets/js/plugins-init/clock-picker-init.js"></script>
+    <!-- asColorPicker init -->
+    <script src="assets/js/plugins-init/jquery-asColorPicker.init.js"></script>
+    <!-- Material color picker init -->
+    <script src="assets/js/plugins-init/material-date-picker-init.js"></script>
+    <!-- Pickdate -->
+    <script src="assets/js/plugins-init/pickadate-init.js"></script>
+
+	<script src="assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+    <script src="assets/js/custom.js"></script>
+	<script src="assets/js/deznav-init.js"></script>
+	<script src="assets/js/demo.js"></script>
+    <script src="assets/js/styleSwitcher.js"></script>
+
+    <!-- jQuery -->
+<script src="path/to/jquery.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="path/to/bootstrap.min.js"></script>
+
+<!-- Bootstrap SelectPicker -->
+<script src="path/to/bootstrap-select.min.js"></script>
+
+
+          <!--**********************************
+              Content body end
+          ***********************************-->

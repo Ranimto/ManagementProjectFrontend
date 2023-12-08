@@ -1,0 +1,137 @@
+<app-header></app-header>
+<app-sidebar3></app-sidebar3> 
+
+  <!--**********************************
+      Content body start
+  ***********************************-->
+
+  <div class="content-body">
+      <div class="container-fluid mh-auto">
+        <div class="input-group search-area">
+          <input type="text" class="form-control search-input" placeholder="Search here..."
+             [(ngModel)]="searchKeyword" (input)="filterEvenements(searchKeyword)">
+    </div>
+        <br>
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="card">
+                      <div class="card-body px-0">
+                          <div class="table-responsive">
+                            <button type="button" class="btn btn-success " (click)="toggleForm()"><i class='fa fa-plus'></i> Add</button>
+                              <table class="table table-sm mb-0 table-striped student-tbl" >
+                                  <thead>
+                                      <tr >
+
+                                          <th class="custom-column">IdEvenement</th>
+                                          <th class="custom-column">Name</th>
+                                          <th class="custom-column">Description</th>
+                                          <th class="custom-column">Lieu</th>
+
+                                      </tr>
+                                  </thead>
+                                  <tbody id="customers">
+
+
+                                    <tr class="btn-reveal-trigger" *ngFor="let evenement of filteredEvenements">
+                                      <td class="py-2"> <h5 class="mb-0 fs--1">{{evenement.id}}</h5></td>
+                                      <td class="py-2">
+                                        <span *ngIf="evenement !== editingEvenement">{{ evenement.name }} </span>
+                                        <input title="r" *ngIf="evenement === editingEvenement" type="text" class="form-control" [(ngModel)]="evenement.name"/>
+                                      </td>
+                                      <td class="py-3">
+                                        <span *ngIf="evenement !== editingEvenement">{{ evenement.description }}</span>
+                                        <input title="r" *ngIf="evenement === editingEvenement" type="text" class="form-control" [(ngModel)]="evenement.description" />
+                                      </td>
+                                      <td class="py-3">
+                                        <span *ngIf="evenement !== editingEvenement">{{ evenement.lieu }}</span>
+                                        <input title="r" *ngIf="evenement === editingEvenement" type="text" class="form-control" [(ngModel)]="evenement.lieu" />
+                                      </td>
+                                      
+
+                                      <td>
+                                                      <a class="btn btn-primary shadow btn-xs sharp me-1" (click)="setEditingEvenement(evenement)"><i class='fa fa-pencil'></i></a>
+                                                      <a class="btn btn-secondary shadow btn-xs sharp me-1" (click)="UpdateEvents(evenement)"><i class='fa fa-recycle'></i></a>
+                                                      <a  class="btn btn-danger shadow btn-xs sharp" (click)="evenement.id && DeleteEvents(evenement.id)"><i class="fa fa-trash"></i></a>
+                                      </td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+
+
+                              <!-- form -->
+                              <div class="modal" [ngClass]="{ 'show': showForm }">
+                                <div class="col-12">
+
+                                  <form class="card"  #addForm="ngForm" action="" id="wizard">
+                                      <div class="card-header">
+                                          <h4 class="card-title">Add Evenement</h4>
+                                      </div>
+                                      <div class="card-body">
+                                          <div class="row form-material">
+                                              <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                  <label class="form-label">Name<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                  <input type="text" class="form-control" placeholder="name of event" id="name" [(ngModel)]="evenement.name" required>
+                                              </div>
+                                              <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                  <label class="form-label">Description<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                  <input type="text" id="description" class="form-control" placeholder="Enter a description for the event" [(ngModel)]="evenement.description" required>
+                                              </div>
+                                              <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                                  <label class="form-label">Lieu<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                                  <input class="form-control" id="lieu" placeholder="what is the event location?" [(ngModel)]="evenement.lieu" required>
+                                              </div>
+
+                                              <div class="row">
+                                                <div class="col">
+                                                  <button type="button" class="btn btn-warning" [disabled]="!addForm.valid" (click)="AddEvents(addForm)">
+                                                    <i class="fa fa-plus"></i> Add
+                                                  </button>
+                                                </div>
+                                                <div class="col">
+                                                  <button type="button" class="btn btn-danger" (click)="CloseForm(addForm)">
+                                                   <i class="fa fa-close"></i> Close
+                                                  </button>
+                                                </div>
+                                              </div>
+
+                                          </div>
+                                      </div>
+                                    </form>
+                              </div>
+
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--**********************************
+      Content body end
+  ***********************************-->
+
+
+
+
+  <!--**********************************
+      Footer start
+  ***********************************-->
+
+
+
+  <!--**********************************
+      Footer end
+  ***********************************-->
+
+  <!--**********************************
+     Support ticket button start
+  ***********************************-->
+
+  <!--**********************************
+     Support ticket button end
+  ***********************************-->
+
+
+

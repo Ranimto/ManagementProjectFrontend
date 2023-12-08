@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Category } from '../models/Category';
 import { CategoryService } from '../services/categoryService/category.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-category',
@@ -51,6 +52,12 @@ export class CategoryComponent implements OnInit {
   }
 
   addCategory(addForm: NgForm) {
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2OTk4MTQ4NzMsImV4cCI6MTcwNzgxNDg3M30.iTwPn1fUoBobFck1g9gNrwkRdXmWrNapfuk1IKNxhrg'
+    //   })
+    // };
     if (addForm.valid) {
       // Vérifiez si le formulaire est valide avant d'ajouter le fournisseur
       this.categoryService.AddCategory(this.category).subscribe(
@@ -69,6 +76,12 @@ export class CategoryComponent implements OnInit {
 
 
   UpdateCategory(category: Category) {
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2OTk4MTQ4NzMsImV4cCI6MTcwNzgxNDg3M30.iTwPn1fUoBobFck1g9gNrwkRdXmWrNapfuk1IKNxhrg'
+    //   })
+    // };
     this.categoryService.UpdateCategory(category).subscribe(
       () => {
         alert('successful update.');
@@ -82,9 +95,10 @@ export class CategoryComponent implements OnInit {
   }
 
   DeleteCategory(idCategory: number) {
+   
     this.categoryService.DeleteCategory(idCategory).subscribe(
       () => {
-        alert("provider"+idCategory +"is deleted  successfully");
+        alert("gategory"+idCategory +"is deleted  successfully");
 
         // La suppression a réussi, mettez à jour la liste des fournisseurs
 

@@ -30,7 +30,7 @@ export class RegisterEmployeesComponent implements OnInit {
         this.email.toEmail="sahar.khmissi1@gmail.com"
         this.email.subject="Account Credentials"
         this.email.body="Dear"+addForm.value.firstname+addForm.value.lastname+", "+"Please find below your credentials .. Email : "+addForm.value.email+" and  Password : "+addForm.value.password
-        this.sendEmail()
+     this.sendEmail()
         console.log("email" + this.email.body)
       },
       (error: HttpErrorResponse) => {
@@ -47,5 +47,5 @@ export class RegisterEmployeesComponent implements OnInit {
         alert("erreur" + error.message);
       },
     )
-  }
+  } 
 }

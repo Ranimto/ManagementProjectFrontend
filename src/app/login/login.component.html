@@ -1,31 +1,46 @@
-<br><br><br><br>
-<div class="container ">
-<div class="row" >
-    <div class="col-md-4 " ></div>
-    <div class="col-md-4 " style="text-align: center;">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                BASIC FORM
-            </div>
-            <br>
-            <div class="panel-body">
-                <form role="form">
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
-                        <input class="form-control" type="text" placeholder="Email">
-                    </div>
-                    <br>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                        <input class="form-control" type="text" placeholder="Password">
-                    </div>
-                   <br>
-
-                    <button type="submit" class="btn btn-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Login</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
-
-                </form>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
+ <!DOCTYPE html>
+ <html lang="en" class="h-100">
+ 
+ <body class="vh-100" style="background-image:url('assets/images/bg.png'); background-position:center;">
+	 <div class="authincation h-100">
+		 <div class="container h-100">
+			 <div class="row justify-content-center h-100 align-items-center">
+				 <div class="col-md-6">
+					 <div class="authincation-content">
+						 <div class="row no-gutters">
+							 <div class="col-xl-12">
+								 <div class="auth-form">
+									 <div class="text-center mb-3">
+										 <a href="index.html"><img src="images/logo/logo-full.png" alt=""></a>
+									 </div>
+									 <h4 class="text-center mb-4">Sign in your account</h4>
+									 <form #addForm="ngForm" action="https://yashadmin.dexignzone.com/xhtml/index.html">
+										 <div class="mb-3">
+											 <label class="mb-1"><strong>Email</strong></label>
+											 <input type="email" class="form-control" placeholder="hello@example.com" [(ngModel)]="authenrequest.email" name="email" required>
+										 </div>
+										 <div class="mb-3">
+											 <label class="mb-1"><strong>Password</strong></label>
+											 <input type="password" class="form-control" value="Password" [(ngModel)]="authenrequest.password" name="password" required>
+										 </div>
+										 <div class="text-center mt-4">
+											 <button type="submit" class="btn btn-primary btn-block" (click)="authentificate(addForm)">Sign in</button>
+										 </div>
+										 <p> <a href="/loginregister">Espace Events</a> <a href="/registerlogin">Espace Employees</a> 
+											<a href="/registerlogin">Espace Projects</a>  </p>
+									 </form>
+									
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	 </div>
+ 
+ 
+l
+ </body>
+ 
+ </html>

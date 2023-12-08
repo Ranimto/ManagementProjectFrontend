@@ -1,1 +1,9 @@
+p {
+    /* Ajoute un espacement entre les liens */
+    margin-bottom: 10px;
+  }
 
+  a {
+    /* Ajoute un espacement horizontal entre les liens */
+    margin-right: 10px;
+  }

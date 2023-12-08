@@ -16,6 +16,21 @@ import { RequisitionComponent } from './requisition/requisition.component';
 import { ProviderComponent } from './provider/provider.component';
 import { HeaderComponent } from './header/header.component';
 import { CategoryComponent } from './category/category.component';
+import { Sidebar2Component } from './sidebar2/sidebar2.component';
+import { DatePipe } from '@angular/common';
+import { ViewemployeeComponent } from './viewemployee/viewemployee.component';
+import { EmailComponent } from './email/email.component';
+import { TwofactorComponent } from './twofactor/twofactor.component';
+import { LocalStorageService } from './TokenClass';
+import { OrganisationComponent } from './ComponentsEvent/organisation/organisation.component';
+import { EvenementComponent } from './ComponentsEvent/Evenement/evenement.component';
+import { OrganisateurComponent } from './ComponentsEvent/organisateur/organisateur.component';
+import { Sidebar3Component } from './sidebar3/sidebar3/sidebar3.component';
+import { CalendarComponent } from './ComponentsEvent/calendar/calendar.component';
+import { ViewprovidersComponent } from './viewproviders/viewproviders.component';
+import { RegisterLoginComponent } from './ComponentsEvent/register-login/register-login.component';
+import { LoginRegisterComponent } from './ComponentsEvent/login-register/login-register.component';
+
 
 
 @NgModule({
@@ -33,15 +48,30 @@ import { CategoryComponent } from './category/category.component';
     ProviderComponent,
     HeaderComponent,
     CategoryComponent,
+    Sidebar2Component,
+    ViewemployeeComponent,
+    EmailComponent,
+    TwofactorComponent,
+    OrganisationComponent,
+    EvenementComponent,
+    OrganisateurComponent,
+    Sidebar3Component,
+    CalendarComponent,
+    ViewprovidersComponent,
+    RegisterLoginComponent,
+    LoginRegisterComponent,
+    
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
-  providers: [],
+  providers: [DatePipe,
+    LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,119 +1,78 @@
-<div id="wrapper">
-    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html">Procurement-Flow</a>
-        </div>
-        <div class="header-right">
-            <a href="message-task.html" class="btn btn-info" title="New Message"><b>30 </b><i
-                    class="fa fa-envelope-o fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="message-task.html" class="btn btn-primary" title="New Task"><b>40 </b><i
-                    class="fa fa-bars fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="login.html" class="btn btn-danger" title="Logout"><i
-                    class="fa fa-exclamation-circle fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<script src="path/to/jquery.min.js"></script>
+<script src="path/to/bootstrap.min.js"></script>
+<script src="path/to/bootstrap-select.min.js"></script>
+<script src="path/to/custom.js"></script>
 
-        </div>
-    </nav>
-    <!-- /. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
-                <li>
-                    <div class="user-img-div">
-                        <img src="assets/img/sahar.jpg" style="width: 70px;height: 78px;" class="img-thumbnail" />
-
-                        <div class="inner-text">
-                            Sahar Khmissi
-                            <br />
-                            <small>Last Login : 2 Weeks Ago </small>
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <!-- row -->
+                <div class="row">
+					<div class="col-xl-6 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title" style="color: rgb(137, 31, 31);"><b>Add New Account for users</b> </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form #addForm="ngForm" action="" id="wizard">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">First Name</label>
+                                                <input type="text" class="form-control" placeholder="Enter the first name.." [(ngModel)]="employee.firstname" name="firstname" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" placeholder="Enter the last name.." [(ngModel)]="employee.lastname" name="lastname" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" class="form-control" placeholder="Enter the Email Address.." [(ngModel)]="employee.email" name="email" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">Password</label>
+                                                <input type="password" class="form-control" placeholder="Enter the Password.." [(ngModel)]="employee.password" name="password" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label>Phone Number</label>
+                                                <input type="text" class="form-control" placeholder="(+216) _ _ _ _ _ _ _ _ "  [(ngModel)]="employee.phone" name="phone" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">Position</label>
+                                                <input type="text" class="form-control" placeholder="Enter the position.."  [(ngModel)]="employee.position" name="position" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-4">
+                                                <label class="form-label">Role</label>
+                                                <select id="inputState" class="default-select form-control wide" [(ngModel)]="employee.role" name="role" required>
+                                                    <!-- <option selected>Choose...</option>
+                                                    <option>ADMIN</option>
+                                                    <option>PURCHASE_MANAGER</option>
+                                                    <option>EMPLOYEE</option> -->
+                                                    <option [value]="option.value" *ngFor="let option of roleOptions"> {{option.label}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-2">
+                                                <label class="form-label">ImageURL</label>
+                                                <input type="text" class="form-control" placeholder="Enter the ImageURL.." [(ngModel)]="employee.imageURL" name="imageURL" required>
+                                            </div>
+                                        </div>
+                                        <div class="text-end mt-4">
+                                        <button type="button" class="btn btn-info"  (click)="addEmployee(addForm)"><i class="fa-solid fa-table-cells-large me-2" ></i>Add Account</button>      
+                                    </div>
+                                 </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                </li>
-
-
-                <li>
-                    <a class="active-menu" routerLink="/admin-dashboard"><i class="fa fa-dashboard "></i>Dashboard</a>
-                </li>
-                <!--Manage Users-->
-                <li>
-                    <a href="#"><i class="fa fa-user "></i>Manage Users <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a routerLink="/admin-dashboard/register-employees"><i class="fa fa-plus"></i>Register
-                                Employess</a>
-                        </li>
-                        <li>
-                            <a routerLink="/admin-dashboard/view-employees"><i class="fa fa-eye "></i>View Employees</a>
-                        </li>
-                        <li>
-                            <a href="component.html"> <i class="fa fa-flag "></i>View Reports</a>
-                        </li>
-
-                        <li>
-                            <a href="message-task.html"><i class="fa fa-recycle "></i>Tasks</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <!--Manage Products-->
-                <li>
-                    <a href="#"><i class="fa fa-user"></i>Manage Products <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="invoice.html"><i class="fa fa-plus"></i>Add Products</a>
-                        </li>
-                        <li>
-                            <a href="pricing.html"><i class="fa fa-plus "></i>Add Product Caregory</a>
-                        </li>
-                        <li>
-                            <a href="component.html"> <i class="fa fa-plus "></i>Add Vendor</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="login.html"><i class="fa fa-sign-in "></i>Log Out</a>
-                </li>
-
-            </ul>
-
-        </div>
-
-    </nav>
-    <!-- /. NAV SIDE  -->
-    <div id="page-wrapper">
-        <div id="page-inner">
-            <div class="row">
-
+					</div>
+                </div>
             </div>
-            <router-outlet></router-outlet>
-
-            <hr />
-
         </div>
-        <!-- /. PAGE INNER  -->
-    </div>
-    <!-- /. PAGE WRAPPER  -->
-</div>
-<!-- /. WRAPPER  -->
-
-<div id="footer-sec">
-    &copy; 2014 YourCompany | Design By : <a href="http://www.binarytheme.com/" target="_blank">BinaryTheme.com</a>
-</div>
-<!-- /. FOOTER  -->
-<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-<!-- JQUERY SCRIPTS -->
-<script src="/src/assets/js/jquery-1.10.2.js"></script>
-<!-- BOOTSTRAP SCRIPTS -->
-<script src="/src/assets/js/bootstrap.js"></script>
-<!-- METISMENU SCRIPTS -->
-<script src="/src/assets/js/jquery.metisMenu.js"></script>
-<!-- CUSTOM SCRIPTS -->
-<script src="/src/assets/js/custom.js"></script>
+        <!--**********************************
+            Content body end
+        ***********************************-->

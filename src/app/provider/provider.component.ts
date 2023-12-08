@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Provider } from '../models/Provider';
 import { ProviderServiceService } from '../services/providerService/provider-service.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-provider',
@@ -9,7 +10,6 @@ import { ProviderServiceService } from '../services/providerService/provider-ser
   styleUrls: ['./provider.component.css']
 })
 export class ProviderComponent implements OnInit {
-
   providers: Provider[]=[] ;
   showForm = false;
   isEditing = false;
@@ -19,9 +19,9 @@ export class ProviderComponent implements OnInit {
     email: '',
     phone: 0,
     city: ''
-  }
+  };
 
-  constructor(private providerService :ProviderServiceService) { }
+  constructor(private providerService :ProviderServiceService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getAllProvider();
@@ -55,13 +55,12 @@ export class ProviderComponent implements OnInit {
 
   }
 
+ 
   addProvider(addForm: NgForm) {
     if (addForm.valid) {
-      // Vérifiez si le formulaire est valide avant d'ajouter le fournisseur
       this.providerService.AddProvider(this.provider).subscribe(
         () => {
           alert('provider is added successfully');
-          // Réinitialisez le formulaire après l'ajout si nécessaire
           addForm.resetForm();
         },
         (error) => {
@@ -71,30 +70,23 @@ export class ProviderComponent implements OnInit {
     }
   }
 
-
-
   UpdateProvider(provider: Provider) {
     this.providerService.UpdateProvider(provider).subscribe(
       () => {
         alert('successful update.');
-
       },
       (error) => {
         console.error('Error update provider:', error);
-
       }
     );
   }
 
+  
   DeleteProvider(idProvider: number) {
     this.providerService.DeleteProvider(idProvider).subscribe(
       () => {
-        alert("provider"+idProvider +"is deleted  successfully");
-
-        // La suppression a réussi, mettez à jour la liste des fournisseurs
-
-        this.providerService.getAllProviders();
-        console.log(this.providers)
+        alert("provider " + idProvider + " is deleted successfully");
+        this.getAllProvider(); // Mettez à jour la liste des fournisseurs après la suppression
       },
       (error) => {
         console.error('Error Delete provider:', error);
@@ -111,6 +103,6 @@ export class ProviderComponent implements OnInit {
   setEditingProvider(provider: Provider | null) {
     this.editingProvider = provider;
   }
-
+  
 
 }
