@@ -1,0 +1,257 @@
+<body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="black" data-headerbg="color_1">
+
+      <!--**********************************
+          Nav header end
+      ***********************************-->
+
+<app-header></app-header>
+<app-sidebar> </app-sidebar>
+
+
+  <!--**********************************
+          Content body start
+      ***********************************-->
+      <div class="content-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row task">
+                <div class="col-xl-2 col-sm-4 col-6">
+                  <div class="task-summary">
+                    <div class="d-flex align-items-baseline">
+                      <h2 class="text-primary count">8</h2>
+                      <span>Not Started</span>
+                    </div>
+                    <p>Tasks assigne</p>
+                  </div>
+                </div>
+                <div class="col-xl-2 col-sm-4 col-6">
+                  <div class="task-summary">
+                    <div class="d-flex align-items-baseline">
+                      <h2 class="text-purple count">7</h2>
+                      <span>In Progress</span>
+                    </div>
+                    <p>Tasks assigne</p>
+                  </div>
+                </div>
+                <div class="col-xl-2 col-sm-4 col-6">
+                  <div class="task-summary">
+                    <div class="d-flex align-items-baseline">
+                      <h2 class="text-warning count">13</h2>
+                      <span>Testing</span>
+                    </div>
+                    <p>Tasks assigne</p>
+                  </div>
+                </div>
+                <div class="col-xl-2 col-sm-4 col-6">
+                  <div class="task-summary">
+                    <div class="d-flex align-items-baseline">
+                      <h2 class="text-danger count">11</h2>
+                      <span>Awaiting</span>
+                    </div>
+                    <p>Tasks assigne</p>
+                  </div>
+                </div>
+                <div class="col-xl-2 col-sm-4 col-6">
+                  <div class="task-summary">
+                    <div class="d-flex align-items-baseline">
+                      <h2 class="text-success count">  {{taskCompletedCount}}  </h2>
+                      <span>Complete</span>
+
+                    </div>
+                    <p>Tasks assigne</p>
+                  </div>
+                </div>
+                <div class="col-xl-2 col-sm-4 col-6">
+                  <div class="task-summary">
+                    <div class="d-flex align-items-baseline">
+                      <h2 class="text-danger count">16</h2>
+                      <span>pending</span>
+                    </div>
+                    <p>Tasks assigned</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12">
+
+          <div class="card">
+            <div class="card-body p-0">
+              <div class="table-responsive active-projects task-table">
+                <div class="tbl-caption">
+                  <h4 class="heading mb-0">Task</h4>
+                  <button type="button" class="btn btn-success " (click)="toggleForm()"><i class='fa fa-plus'></i> Add</button>
+                </div>
+
+                <table id="empoloyeestbl2" class="table">
+
+                  <thead>
+                    <tr>
+                      <th>
+                      </th>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Status</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>CollaboratorId</th>
+                      <th>Tags</th>
+                      <th class="text-end">Priority</th>
+                      <th class="custom-column">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let task of tasks ">
+                      <td>
+                        <div class="form-check custom-checkbox">
+                          <input title ="r" type="checkbox" class="form-check-input" id="customCheckBox3" required>
+                          <label class="form-check-label" for="customCheckBox3"></label>
+                        </div>
+                      </td>
+                      <td><span>{{task.id}}</span></td>
+                      <td>
+                        <div class="products">
+                          <div>
+                            <h6  *ngIf="task !== editingTask">{{task.nom}}</h6>
+                            <input title="r" *ngIf="task=== editingTask" type="text" class="form-control" [(ngModel)]="task.nom" />
+                            <span *ngIf="task !== editingTask">{{task.description}}</span>
+                            <input title="r" *ngIf="task=== editingTask" type="text" class="form-control" [(ngModel)]="task.description" />
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                         <select  title ="r"class="default-select status-select">
+                          <option value="complete">{{ task.status}}</option>
+                          <input title="r" *ngIf="task=== editingTask" type="text" class="form-control" [(ngModel)]="task.status" />
+                          <option value="pending">Pending</option>
+                          <option value="testing">Testing</option>
+                          <option value="progress">In Progress</option>
+                        </select>
+                      </td>
+                      <td class="py-3">
+                        <span *ngIf="task !== editingTask">{{task.startDate}}</span>
+                        <input title="r" *ngIf="task=== editingTask" type="date" class="form-control" [(ngModel)]="task.startDate" />
+                      </td>
+
+                      <td class="py-3">
+                        <span *ngIf="task !== editingTask">{{task.endDate}}</span>
+                        <input title="r" *ngIf="task=== editingTask" type="date" class="form-control" [(ngModel)]="task.endDate" />
+                      </td>
+
+                      <td class="py-3">
+                        <span *ngIf="task !== editingTask">{{task.id_collaborator}}</span>
+                        <input title="r" *ngIf="task=== editingTask" type="number" class="form-control" [(ngModel)]="task.id_collaborator" />
+                      </td>
+
+                      <td>
+                        <span class="badge badge-primary light border-0 me-1">Issue</span>
+                        <span class="badge badge-secondary light border-0 ms-1">{{task.tags}}</span>
+                        <input title="r" *ngIf="task=== editingTask" type="text" class="form-control" [(ngModel)]="task.tags" />
+                      </td>
+                      <td class="text-end">
+                         <select  title ="r"class="default-select status-select">
+                          <option value="Medium">{{task.priority}}</option>
+                          <input title="r" *ngIf="task=== editingTask" type="text" class="form-control" [(ngModel)]="task.priority" />
+                          <option value="High">High</option>
+                          <option value="Low">Low</option>
+                        </select>
+                      </td>
+
+                      <td>
+                        <a class="btn btn-primary shadow btn-xs sharp me-1" (click)="setEditingTask(task)"><i class='fa fa-pencil'></i></a>
+                        <a class="btn btn-secondary shadow btn-xs sharp me-1" (click)="UpdateTask(task)"><i class='fa fa-recycle'></i></a>
+                        <a class="btn btn-danger shadow btn-xs sharp" (click)="DeleteTask(task.id)"><i class="fa fa-trash"></i></a>
+                      </td>
+                    </tr>
+
+                  </tbody>
+
+                </table>
+                <!-- form -->
+                <div class="modal" [ngClass]="{ 'show': showForm }">
+                  <div class="col-12">
+
+                    <form class="card"  #addForm="ngForm" action="" id="wizard">
+                        <div class="card-header">
+                            <h4 class="card-title">Add Task</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row form-material">
+                                <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                    <label class="form-label">Name<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                    <input type="text" class="form-control" placeholder="name" value="name" id="name" [(ngModel)]="task.nom" required>
+                                </div>
+
+                                <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                    <label class="form-label">description<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                    <input type="text" id="text" class="form-control" placeholder="description"  value="description" required="Email">
+                                </div>
+
+                                <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                  <label class="form-label">Start Date<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                  <input type="date" id="startDate" class="form-control" placeholder="Start date"   [(ngModel)]="task.startDate" required>
+                              </div>
+                              <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                  <label class="form-label">End Date<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                    <input type="date" id="endDate" class="form-control" placeholder="Start date" [(ngModel)]="task.endDate" required>
+                              </div>
+
+                              <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                <label class="form-label">idCollaborator<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                <input class="form-control" id="idCollaborator" placeholder="idCollaborator " value="idCollaborator"  [(ngModel)]="task.id_collaborator" required>
+                            </div>
+                                <div class="col-xl-3 col-xxl-6 col-md-6">
+                                    <label class="form-label">Status<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                    <input type="text" class="form-control"  id="Status" placeholder="Status" value="Status" [(ngModel)]="task.status" required>
+
+                                </div>
+                                <div class="col-xl-3 col-xxl-6 col-md-6">
+                                  <label class="form-label">Priopity<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                  <input type="text" class="form-control"  id="priority" placeholder="priority" value="priority" [(ngModel)]="task.priority" required>
+
+                              </div>
+                              <div class="col-xl-3 col-xxl-6 col-md-6">
+                                <label class="form-label">tags<span style="color: rgb(180, 16, 16); font-size: 10px; font-style: italic;">*</span ></label>
+                                <input type="text" class="form-control"  id="tags" placeholder="tags" value="tags" [(ngModel)]="task.tags" required>
+
+                            </div>
+
+                                <div class="row">
+                                  <div class="col">
+                                    <button type="button" class="btn btn-warning" [disabled]="!addForm.valid" (click)="addTask(addForm)">
+                                      <i class="fa fa-plus"></i> Add
+                                    </button>
+                                  </div>
+                                  <div class="col">
+                                    <button type="button" class="btn btn-danger p" (click)="CloseForm(addForm)">
+                                     <i class="fa fa-close"></i> Close
+                                    </button>
+                                  </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                      </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+
+      <!--**********************************
+          Content body end
+      ***********************************-->
+
+
+

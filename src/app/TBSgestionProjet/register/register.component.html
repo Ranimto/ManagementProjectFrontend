@@ -1,0 +1,57 @@
+ <div class="container">
+
+    <h2>Register</h2>
+    <form >
+      <div class="form-group">
+        <label for="lastname">Firstname</label>
+        <input title="r"
+          id="nom"
+          name="nom"
+          required type="text"
+          [(ngModel)]="nom"
+        >
+      </div>
+        <div class="form-group">
+          <label for="lastname">Lastname</label>
+          <input title="r"
+            id="prenom"
+            name="prenom"
+            required type="text"
+            [(ngModel)]="prenom"
+          >
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          required type="text"
+          [(ngModel)]="email"
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          required type="password"
+          [(ngModel)]="password"
+        >
+      </div>
+      <div class="form-group">
+        <label for="password">Role</label>
+        <input title="role"
+          id="role"
+          name="role"
+          required type="role"
+          [(ngModel)]="role"
+        >
+      </div>
+      <button type="submit" (click)="OnRegister()">Register</button>
+      <a routerLink="/login">Login</a>
+    </form>
+  </div>
+
+
+
+

@@ -30,6 +30,9 @@ import { CalendarComponent } from './ComponentsEvent/calendar/calendar.component
 import { ViewprovidersComponent } from './viewproviders/viewproviders.component';
 import { RegisterLoginComponent } from './ComponentsEvent/register-login/register-login.component';
 import { LoginRegisterComponent } from './ComponentsEvent/login-register/login-register.component';
+import { TasksComponent } from './TBSgestionProjet/tasks/tasks.component';
+import { ProjectComponent } from './TBSgestionProjet/project/project.component';
+import { AuthComponent } from './TBSgestionProjet/auth/auth.component';
 
 
 
@@ -60,15 +63,19 @@ import { LoginRegisterComponent } from './ComponentsEvent/login-register/login-r
     ViewprovidersComponent,
     RegisterLoginComponent,
     LoginRegisterComponent,
-    
-  
+    TasksComponent,
+    ProjectComponent,
+    AuthComponent
+
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    
+
   ],
   providers: [DatePipe,
     LocalStorageService],
