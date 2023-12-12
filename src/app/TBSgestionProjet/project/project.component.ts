@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+
 import { Project } from 'src/app/models/Project/project';
+import { NotificationService } from 'src/app/services/serviceSTBS/notificationService/web-socket.service';
 import { ProjectService } from 'src/app/services/serviceSTBS/projectService/project.service';
 
 
@@ -23,11 +26,11 @@ export class ProjectComponent implements OnInit {
     endDate: '',
     id_manager: 0
   };
+  selectedSearchKeyword!: string;
+  filteredProjects!: Project[];
 
-  constructor(private projectService: ProjectService) {
 
-  /*   this.webSocketService.connect().subscribe('/topic/projectAdded', (message) => {
-      this.notification = message.body; */
+  constructor(private projectService: ProjectService, private notificationService: NotificationService, private notifierService: NotifierService) {
 
   }
 
@@ -35,9 +38,19 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProject();
+    this.notificationService.connect(); // Make sure to establish the WebSocket connection
+    this.notificationService.sendNotification('Le projet a été créé avec succès.');
 
   }
 
+
+  subscribeToNotifications(callback: (message: any) => void): void {
+    this.notificationService.subscribeToNotifications((message) => {
+      console.log('Received notification:', message);
+      this.notification = message; // Ajoutez cette ligne pour afficher la notification dans le composant
+
+    });
+  }
 
   toggleForm() {
     this.showForm = !this.showForm; // Basculez entre afficher et masquer le formulaire
@@ -63,7 +76,26 @@ export class ProjectComponent implements OnInit {
         console.error('Error fetching projects:', error);
       }
     );
+  }
 
+  searchProjects(projects: Project[]): void {
+    const filteredProjects = projects.filter((project) =>
+      this.projectContainsKeyword(project, this.selectedSearchKeyword.toLowerCase())
+
+    );
+    console.log(filteredProjects)
+    // Update the table data source with the filtered projects
+    this.filteredProjects = filteredProjects; // Replace with your specific data source update mechanism
+    this.projects= filteredProjects;
+  }
+
+  projectContainsKeyword(project: Project, keyword: string): boolean {
+    return (
+      project.nom.toLowerCase().includes(keyword) ||
+      project.startDate.toString().toLowerCase().includes(keyword) ||
+      project.endDate.toString().toLowerCase().includes(keyword) ||
+      project.id_manager.toString().toLowerCase().includes(keyword)
+    );
   }
 
   addProject(addForm: NgForm) {
@@ -71,12 +103,14 @@ export class ProjectComponent implements OnInit {
       // Vérifiez si le formulaire est valide avant d'ajouter le fournisseur
       this.projectService.AddProject(this.project).subscribe(
         () => {
-          alert('Project is added successfully');
+         // alert('Project is added successfully');
           // Réinitialisez le formulaire après l'ajout si nécessaire
           addForm.resetForm();
+          this.notifierService.notify('success', 'Project is added succefully!');
         },
         (error) => {
           console.error('Error add Project:', error);
+          this.notifierService.notify('error', 'Error, Check your credentials please !');
         }
       );
     }
@@ -121,6 +155,17 @@ export class ProjectComponent implements OnInit {
     this.editingProject = Project;
   }
 
+printReport():void {
+  let datatype ='application/vnd.ms-excel.sheet.macroEnabled.12';
+  let tableSelect=document.getElementById('projects');
+  let tableHtml=tableSelect?.outerHTML.replace(/ /g,'%20');
+  let downloadLink=document.createElement('a') ;
+  document.body.appendChild(downloadLink);
+  downloadLink.href='data:'+datatype+',' +tableHtml;
+  downloadLink.download='project-report.xls';
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
 
+}
 
 }

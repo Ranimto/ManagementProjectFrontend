@@ -8,13 +8,25 @@
         <div class="card">
           <div class="card-body px-0">
             <div class="table-responsive">
-              <button type="button" class="btn btn-success" (click)="toggleForm()"><i class='fa fa-plus'></i> Add</button>
-
-              <table class="table table-sm mb-0 table-striped student-tbl">
+              <h4 class="text"> Projects</h4>
+              <br>
+              <div class="row">
+                <div class="col"><button type="button" class="btn btn-success " (click)="toggleForm()"><i class='fa fa-plus'></i> Add</button></div>
+                <div class="col"> <button type="button" class="btn btn-report" (click)="printReport()"><i class='fa fa-plus'></i>  Print Report </button></div>
+                           <!-- Search -->
+                           <div class="col">
+                           <div class="Search-component">
+                              <input title="select" [(ngModel)]="selectedSearchKeyword" class="Search" placeholder="Search">
+                              <button title="Search" class="btnSearch" (click)="searchProjects(projects)"> <i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                          </div>
+            </div>
+            <br>
+              <table class="table table-sm mb-0 table-striped student-tbl"  id="projects">
                 <thead>
                   <tr>
                     <th class="custom-column">Id</th>
-                    <th class="custom-column">Nom</th>
+                    <th class="custom-column">Name</th>
                     <th class="custom-column">Start Date</th>
                     <th class="custom-column">End Date</th>
                     <th class="custom-column">Id Manager</th>
@@ -22,6 +34,9 @@
                   </tr>
                 </thead>
                 <tbody>
+
+
+
                   <tr class="btn-reveal-trigger" *ngFor="let project of projects">
                     <td class="py-2"><h5 class="mb-0 fs--1">{{project.id}}</h5></td>
                     <td class="py-2" *ngIf="project !== editingProject">{{ project.nom }}</td>
@@ -37,6 +52,9 @@
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="notification" class="notification">
+                {{ notification }}
+              </div>
 
               <div class="modal" [ngClass]="{ 'show': showForm }">
                 <div class="col-12">
@@ -81,8 +99,8 @@
                         </div>
                       </div>
                     </div>
-
                   </form>
+
                 </div>
               </div>
             </div>
@@ -92,3 +110,4 @@
     </div>
   </div>
 </div>
+<notifier-container></notifier-container>

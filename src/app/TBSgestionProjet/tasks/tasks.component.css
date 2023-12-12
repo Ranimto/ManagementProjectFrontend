@@ -3,9 +3,9 @@
 }
 
 .btn-success{
-margin-left:  92%;
+  margin-left:  0%;
+  }
 
-}
 .btn-warning{
   width: 12%;
   margin-left:  89%;
@@ -16,5 +16,40 @@ margin-left:  92%;
   width: 12%;
   margin-top: 5%;
 }
+
+.btn-report{
+  margin-left:171%;
+  background-color: rgba(37, 49, 107, 0.866);
+  color:white;
+  }
+
+.sort{
+  background-color:white;
+  border-color: rgb(219, 216, 216);
+  width: 39%;
+  height: 27px;
+
+}
+.btnSort{
+  background-color: rgba(255, 255, 251, 0.768);
+   border-color: rgb(131, 126, 126);
+   border-radius: 6%;
+  width: 20%;
+
+}
+.sorting-component{
+margin-left: 4%;
+
+}
+.task-summary{
+  margin-left: 27%;
+}
+#theme{
+  background-color: #eae4f846;
+border-color: rgb(177, 189, 197);
+
+}
+.card{border-color: rgb(205, 205, 222);}
+
 
 

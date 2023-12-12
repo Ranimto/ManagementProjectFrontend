@@ -5,6 +5,7 @@ import { TaskStatus } from 'src/app/models/TaskModel/TaskStatus';
 import { Priority } from 'src/app/models/TaskModel/Priority';
 import { Task } from 'src/app/models/TaskModel/Task';
 import { TaskService } from 'src/app/services/serviceSTBS/taskService/task.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-tasks',
@@ -31,21 +32,50 @@ export class TasksComponent implements OnInit {
 
 
   taskCompletedCount: number | undefined;
+  selectedSortOption!: string;
+  selectedFilterOption!: string;
 
 
-  constructor(private taskService:TaskService) { }
+  constructor(private taskService:TaskService,private notifierService: NotifierService) { }
 
   ngOnInit(): void {
     this.getAllTasks();
-    this.taskCompletedCount=this.getNbTasksCompleted();
     console.log("le task est " + this.taskCompletedCount);
 
   }
 
   toggleForm() {
     this.showForm = !this.showForm; // Basculez entre afficher et masquer le formulaire
-
   }
+
+// pour le tri
+  sortTasks(tasks: Task[]){
+    if (this.selectedSortOption ==='name') {
+      this.tasks.sort((a, b) => a.nom.localeCompare(b.nom));
+    } else if (this.selectedSortOption ==='startDate') {
+      this.tasks.sort((a, b) => new Date(a.startDate).getDate() - new Date(b.startDate).getDate());
+    }
+   // else if (this.selectedSortOption ==='Complete') {this.tasks.sort(a=> a.status.localeCompare(TaskStatus.Complete))}
+    //else if (this.selectedSortOption ==='Pending') {{this.tasks.filter((a,b)=> a.status.localeCompare(TaskStatus.Complete))}}
+    //else if (this.selectedSortOption ==='Testing') {}
+  }
+  //filterTasks(tasks: Task[]){
+   // if (this.selectedSortOption ==='Complete') {this.tasks.sort(a=> a.status.localeCompare(TaskStatus.Complete))}
+   // else if (this.selectedSortOption ==='Pending') {this.tasks.filter((a,b)=> a.status.localeCompare(TaskStatus.Pending))}
+   // else if (this.selectedSortOption ==='Testing') {this.tasks.filter((a,b)=> a.status.localeCompare(TaskStatus.Testing))}
+ // }
+  filterTasks(tasks: Task[]): Task[] {
+    if (this.selectedFilterOption === TaskStatus.Complete) {
+      return tasks.filter((a => a.status === TaskStatus.Complete));
+    } else if (this.selectedFilterOption === 'Pending') {
+      return tasks.filter((a) => a.status === TaskStatus.Pending);
+    } else if (this.selectedFilterOption === 'Testing') {
+      return tasks.filter((a) => a.status === TaskStatus.Testing);
+    } else {
+      return tasks;
+    }
+  }
+
 
   CloseForm(addForm: NgForm) {
     this.toggleForm() ;
@@ -71,11 +101,7 @@ export class TasksComponent implements OnInit {
    this.taskService.getAllTasks().subscribe(
     (result) => {
       this.tasks=result;
-      this.taskCompletedCount=this.getNbTasksCompleted();
       console.log(this.tasks);
-      if (this.tasks && this.tasks.length > 0) {
-        this.taskCompletedCount = this.getNbTasksCompleted();
-      }
 
     },
     (error) => {
@@ -83,21 +109,29 @@ export class TasksComponent implements OnInit {
       console.log(this.tasks)})
     }
 
-    getNbTasksCompleted(): number {
-      let taskCompletedCount = 0;
 
-      // Check if tasks array is defined and not empty
-      console.log(this.tasks)
-      if (this.tasks && this.tasks.length > 0) {
-        for (let i = 0; i < this.tasks.length; i++) {
 
-          if (this.tasks[i].status === TaskStatus.Complete) {
-            taskCompletedCount++;
-          }
-        }
-      }
+    getNbTasksCompleted(tasks: Task[]): number {
+      if (!tasks || tasks.length === 0) { return 0; }
+      const pendingTasks = tasks.filter(task => task.status === TaskStatus.Complete);
+      return pendingTasks.length;
+    }
 
-      return taskCompletedCount;
+    getNbTasksPending(tasks: Task[]): number {
+      if (!tasks || tasks.length === 0) { return 0; }
+      const pendingTasks = tasks.filter(task => task.status === TaskStatus.Pending);
+      return pendingTasks.length;
+    }
+
+    getNbTasksTesting(tasks: Task[]): number {
+      if (!tasks || tasks.length === 0) { return 0; }
+      const pendingTasks = tasks.filter(task => task.status === TaskStatus.Testing);
+      return pendingTasks.length;
+    }
+    getNbTasksInProgress(tasks: Task[]): number {
+      if (!tasks || tasks.length === 0) { return 0; }
+      const pendingTasks = tasks.filter(task => task.status === TaskStatus.In_Progress);
+      return pendingTasks.length;
     }
 
 
@@ -147,14 +181,30 @@ export class TasksComponent implements OnInit {
     // Vérifiez si le formulaire est valide avant d'ajouter le fournisseur
     this.taskService.AddTask(this.task).subscribe(
       () => {
-        alert('task is added successfully');
+
+        //alert('task is added successfully');
         // Réinitialisez le formulaire après l'ajout si nécessaire
         addForm.resetForm();
+          this.notifierService.notify('success', 'Task is added succefully!');
       },
       (error) => {
         console.error('Error add task:', error);
+        this.notifierService.notify('error', 'Error, Check your credentials please !');
       }
     );
   }
 }
+printReport():void {
+  let datatype ='application/vnd.ms-excel.sheet.macroEnabled.12';
+  let tableSelect=document.getElementById('tasks');
+  let tableHtml=tableSelect?.outerHTML.replace(/ /g,'%20');
+  let downloadLink=document.createElement('a') ;
+  document.body.appendChild(downloadLink);
+  downloadLink.href='data:'+datatype+',' +tableHtml;
+  downloadLink.download='project-report.xls';
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+
+}
+
 }

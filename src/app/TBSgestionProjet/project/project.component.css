@@ -3,7 +3,7 @@
 }
 
 .btn-success{
-margin-left:  92%;
+margin-left:  2%;
 }
 .btn-warning{
   width: 12%;
@@ -13,5 +13,27 @@ margin-left:  92%;
 .task{
   color: aliceblue;
 }
+.btn-report{
+  margin-left: 170%;
+  background-color: rgba(37, 49, 107, 0.866);
+  color:white;
+  }
 
+  .text{
+    margin-left: 1%;
+ }
+ .btnSearch{
+   background-color: rgba(255, 255, 251, 0.768);
+   border-color: rgb(165, 159, 159);
+   border-radius: 10%;
+   width: 10%;
+ }
+ .Search{
+  background-color:white;
+  border-color: rgb(235, 228, 228);
+}
+.Search-component{
+  margin-left: 10%;
+}
+.card{border-color: rgb(205, 205, 222);}
 

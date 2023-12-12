@@ -1,30 +1,35 @@
-/* import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import * as Stomp from 'stompjs';
-import * as SockJS from 'sockjs-client';
-
+import { Injectable } from '@angular/core';
+import { RxStompService } from '@stomp/ng2-stompjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WebSocketService {
+export class NotificationService {
 
-  private stompClient: Stomp.Client;
-  private URL=environment.apiBaseUrlTask;
-  constructor() { }
+  constructor(private stompService: RxStompService) {}
 
-  public connect() {
-    const socket = new SockJS( `${this.URL}/notif/websocket`);
-    this.stompClient = Stomp.over(socket);
-    return this.stompClient;
+  //This method is responsible for configuring and activating the WebSocket connection using RxStompService
+  connect(): void {
+    this.stompService.configure({
+      brokerURL: 'ws://localhost:8022/ws'
+    });
+    this.stompService.activate();
   }
 
-  public sendMessage(message: string) {
-    this.stompClient.send('/app/addProject', {}, message);
+//publish a message to a specific destination
+//The /app/ prefix is often used as a convention to designate application-level messaging destinations.
+  sendNotification(message: string): void {
+    this.stompService.publish({
+      destination: '/app/notification/private',
+      body: message
+    });
   }
 
-  public subscribeToTopic() {
-    return this.stompClient.subscribe('/topic/projectAdded');
-  }
+    // Watch for incoming notifications (listen to notification) and subscribe to them
+    subscribeToNotifications(callback: (message: any) => void): void {
+      this.stompService.watch('/user/specific').subscribe(callback);
+    }
+
 }
- */
+
+

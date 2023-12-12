@@ -33,6 +33,10 @@ import { LoginRegisterComponent } from './ComponentsEvent/login-register/login-r
 import { TasksComponent } from './TBSgestionProjet/tasks/tasks.component';
 import { ProjectComponent } from './TBSgestionProjet/project/project.component';
 import { AuthComponent } from './TBSgestionProjet/auth/auth.component';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { NotifierModule } from 'angular-notifier';
+import { CharjsComponent } from './charjs/charjs.component';
+
 
 
 
@@ -65,7 +69,9 @@ import { AuthComponent } from './TBSgestionProjet/auth/auth.component';
     LoginRegisterComponent,
     TasksComponent,
     ProjectComponent,
-    AuthComponent
+    AuthComponent,
+    CharjsComponent,
+
 
 
 
@@ -75,10 +81,15 @@ import { AuthComponent } from './TBSgestionProjet/auth/auth.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NotifierModule
+
+
 
   ],
   providers: [DatePipe,
-    LocalStorageService],
+    LocalStorageService,
+    RxStompService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
