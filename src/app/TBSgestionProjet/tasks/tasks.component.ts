@@ -6,6 +6,7 @@ import { Priority } from 'src/app/models/TaskModel/Priority';
 import { Task } from 'src/app/models/TaskModel/Task';
 import { TaskService } from 'src/app/services/serviceSTBS/taskService/task.service';
 import { NotifierService } from 'angular-notifier';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-tasks',
@@ -30,17 +31,25 @@ export class TasksComponent implements OnInit {
     id_collaborator: 0
   }
 
-
   taskCompletedCount: number | undefined;
   selectedSortOption!: string;
   selectedFilterOption!: string;
+  NbTasksPending!:number;  NbTasksCompleted!:number; NbTasksTesting!:number; NbTasksInProgress!:number;
+  //data= new Map<string, number>();
 
+   data = {
+    'Completed': 0,
+    'Pending': 0,
+    'Testing': 0,
+    'InProgress': 0,
+  };
 
   constructor(private taskService:TaskService,private notifierService: NotifierService) { }
 
   ngOnInit(): void {
     this.getAllTasks();
     console.log("le task est " + this.taskCompletedCount);
+    this.getChar();
 
   }
 
@@ -55,15 +64,8 @@ export class TasksComponent implements OnInit {
     } else if (this.selectedSortOption ==='startDate') {
       this.tasks.sort((a, b) => new Date(a.startDate).getDate() - new Date(b.startDate).getDate());
     }
-   // else if (this.selectedSortOption ==='Complete') {this.tasks.sort(a=> a.status.localeCompare(TaskStatus.Complete))}
-    //else if (this.selectedSortOption ==='Pending') {{this.tasks.filter((a,b)=> a.status.localeCompare(TaskStatus.Complete))}}
-    //else if (this.selectedSortOption ==='Testing') {}
   }
-  //filterTasks(tasks: Task[]){
-   // if (this.selectedSortOption ==='Complete') {this.tasks.sort(a=> a.status.localeCompare(TaskStatus.Complete))}
-   // else if (this.selectedSortOption ==='Pending') {this.tasks.filter((a,b)=> a.status.localeCompare(TaskStatus.Pending))}
-   // else if (this.selectedSortOption ==='Testing') {this.tasks.filter((a,b)=> a.status.localeCompare(TaskStatus.Testing))}
- // }
+
   filterTasks(tasks: Task[]): Task[] {
     if (this.selectedFilterOption === TaskStatus.Complete) {
       return tasks.filter((a => a.status === TaskStatus.Complete));
@@ -75,7 +77,6 @@ export class TasksComponent implements OnInit {
       return tasks;
     }
   }
-
 
   CloseForm(addForm: NgForm) {
     this.toggleForm() ;
@@ -110,36 +111,40 @@ export class TasksComponent implements OnInit {
     }
 
 
-
     getNbTasksCompleted(tasks: Task[]): number {
       if (!tasks || tasks.length === 0) { return 0; }
       const pendingTasks = tasks.filter(task => task.status === TaskStatus.Complete);
-      return pendingTasks.length;
+      const taskCount = pendingTasks.length;
+      this.data.Completed=taskCount; // Push the number to the data array
+      return taskCount;
+
     }
 
     getNbTasksPending(tasks: Task[]): number {
       if (!tasks || tasks.length === 0) { return 0; }
       const pendingTasks = tasks.filter(task => task.status === TaskStatus.Pending);
+      this.data.Pending=pendingTasks.length;
       return pendingTasks.length;
     }
 
     getNbTasksTesting(tasks: Task[]): number {
       if (!tasks || tasks.length === 0) { return 0; }
       const pendingTasks = tasks.filter(task => task.status === TaskStatus.Testing);
+      this.data.Testing=pendingTasks.length;
       return pendingTasks.length;
     }
     getNbTasksInProgress(tasks: Task[]): number {
       if (!tasks || tasks.length === 0) { return 0; }
       const pendingTasks = tasks.filter(task => task.status === TaskStatus.In_Progress);
+      this.data.InProgress=pendingTasks.length;
       return pendingTasks.length;
     }
-
 
 
     UpdateTask(task: Task) {
       this.taskService.UpdateTask(task,task.id).subscribe(
         () => {
-          alert('task successfully updated.');
+          this.notifierService.notify('success', 'Task is updated succefully!');
 
         },
         (error) => {
@@ -152,7 +157,7 @@ export class TasksComponent implements OnInit {
     DeleteTask(idTask: number) {
       this.taskService.DeleteTask(idTask).subscribe(
         () => {
-          alert("Task"+" "+idTask +"is deleted successfully");
+          this.notifierService.notify('success', 'Task is deleted succefully!');
 
           // La suppression a réussi, mettez à jour la liste des fournisseurs
 
@@ -204,7 +209,29 @@ printReport():void {
   downloadLink.download='project-report.xls';
   downloadLink.click();
   document.body.removeChild(downloadLink);
-
 }
+
+
+
+//charjs
+getChar(){
+
+  var myChart = new Chart("myChart", {
+    type: 'pie',
+    data: {
+        labels: ['Completed','Pending', 'In Progress', 'Testing'],
+        datasets: [{
+            label: 'Task Status',
+            data: [this.data.Completed,this.data.Pending,this.data.InProgress,this.data.Testing],
+            backgroundColor:["#2ecc71", "#3498db", "#f1c40f"],
+            borderColor: ["#2ecc71", "#3498db", "#f1c40f"],
+            borderWidth: 1
+        },
+       ]
+    },
+
+});
+}
+
 
 }

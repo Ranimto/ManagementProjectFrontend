@@ -21,7 +21,7 @@
             <div class="col-xl-3 col-xl-3 col-12">
               <div class="task-summary">
                 <div class="d-flex align-items-baseline">
-                  <h2 class="text-primary count">{{getNbTasksTesting(tasks)}}</h2>
+                  <h2 class="text-primary count"  [(ngModel)]="NbTasksTesting">{{getNbTasksTesting(tasks)}}</h2>
                   <span>Testing</span>
                 </div>
                 <p>Tasks assigned</p>
@@ -30,7 +30,7 @@
             <div class="col-xl-3 col-xl-3 col-12">
               <div class="task-summary">
                 <div class="d-flex align-items-baseline">
-                  <h2 class="text-purple count">{{getNbTasksInProgress(tasks)}}</h2>
+                  <h2 class="text-purple count" [(ngModel)]="NbTasksInProgress">{{getNbTasksInProgress(tasks)}}</h2>
                   <span>In Progress</span>
                 </div>
                 <p>Tasks assigned</p>
@@ -40,7 +40,7 @@
             <div class="col-xl-3 ccol-xl-3 col-12">
               <div class="task-summary">
                 <div class="d-flex align-items-baseline">
-                  <h2 class="text-success count">  {{getNbTasksCompleted(tasks)}}  </h2>
+                  <h2 class="text-success count" [(ngModel)]="NbTasksCompleted">  {{getNbTasksCompleted(tasks)}}  </h2>
                   <span>Complete</span>
                 </div>
                 <p>Tasks assigned</p>
@@ -49,7 +49,7 @@
             <div class="col-xl-3 col-xl-3 col-12">
               <div class="task-summary">
                 <div class="d-flex align-items-baseline">
-                  <h2 class="text-danger count">{{getNbTasksPending(tasks)}}</h2>
+                  <h2 class="text-danger count" [(ngModel)]="NbTasksPending">{{getNbTasksPending(tasks)}}</h2>
                   <span>pending</span>
                 </div>
                 <p>Tasks assigned</p>
@@ -71,7 +71,8 @@
               <div class="row">
                 <!--buttons -->
                 <div class="col"><button type="button" class="btn btn-success" (click)="toggleForm()"><i class='fa fa-plus'></i> Add</button></div>
-                <div class="col"> <button type="button" class="btn btn-report" (click)="printReport()"><i class='fa fa-plus'></i>  Print Report </button></div>
+                <div class="col"> <button type="button" class="btn btn-rep" (click)="printReport()"><i class='fa fa-plus'></i>  Print Report </button></div>
+
             <div class="col">
                <!-- Sort Task-->
       <div class="sorting-component">
@@ -227,11 +228,6 @@
                                 </button>
                               </div>
                             </div>
-
-
-
-
-
                         </div>
                     </div>
                   </form>
@@ -249,5 +245,8 @@
       Content body end
   ***********************************-->
 
-
+<!-- CharJs-->
+  <!-- <div style="width: 600px;height: 600px;">
+    <canvas id="myChart"></canvas>
+  </div> -->
 

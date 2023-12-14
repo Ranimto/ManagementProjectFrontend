@@ -17,16 +17,16 @@
   margin-top: 5%;
 }
 
-.btn-report{
-  margin-left:171%;
-  background-color: rgba(37, 49, 107, 0.866);
+.btn-rep{
+  margin-left:98%;
+  background-color: rgba(32, 39, 75, 0.866);
   color:white;
   }
 
 .sort{
   background-color:white;
   border-color: rgb(219, 216, 216);
-  width: 39%;
+  width: 60%;
   height: 27px;
 
 }
@@ -38,7 +38,7 @@
 
 }
 .sorting-component{
-margin-left: 4%;
+margin-left: 30%;
 
 }
 .task-summary{

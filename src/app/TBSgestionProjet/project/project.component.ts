@@ -41,6 +41,7 @@ export class ProjectComponent implements OnInit {
     this.notificationService.connect(); // Make sure to establish the WebSocket connection
     this.notificationService.sendNotification('Le projet a été créé avec succès.');
 
+
   }
 
 
@@ -119,7 +120,7 @@ export class ProjectComponent implements OnInit {
   UpdateProject(Project: Project) {
     this.projectService.UpdateProject(Project).subscribe(
       () => {
-        alert('successful update.');
+        this.notifierService.notify('success', 'Task is updated succefully!');
 
       },
       (error) => {
@@ -132,7 +133,7 @@ export class ProjectComponent implements OnInit {
   DeleteProject(idProvider: number) {
     this.projectService.DeleteProject(idProvider).subscribe(
       () => {
-        alert("Project"+idProvider +"is deleted  successfully");
+        this.notifierService.notify('success', 'Task is deleted succefully!');
 
         // La suppression a réussi, mettez à jour la liste des fournisseurs
 
