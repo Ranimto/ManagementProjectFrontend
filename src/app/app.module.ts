@@ -35,7 +35,7 @@ import { ProjectComponent } from './TBSgestionProjet/project/project.component';
 import { AuthComponent } from './TBSgestionProjet/auth/auth.component';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { NotifierModule } from 'angular-notifier';
-import { CharjsComponent } from './charjs/charjs.component';
+
 
 
 
@@ -70,7 +70,7 @@ import { CharjsComponent } from './charjs/charjs.component';
     TasksComponent,
     ProjectComponent,
     AuthComponent,
-    CharjsComponent,
+
 
 
 

@@ -28,7 +28,7 @@ import { LoginRegisterComponent } from './ComponentsEvent/login-register/login-r
 import { TasksComponent } from './TBSgestionProjet/tasks/tasks.component';
 import { ProjectComponent } from './TBSgestionProjet/project/project.component';
 import { AuthComponent } from './TBSgestionProjet/auth/auth.component';
-import { CharjsComponent } from './charjs/charjs.component';
+
 
 const routes: Routes = [
   {path:'admin-dashboard',component:AdminDashboardMainComponent,children:[
@@ -62,7 +62,7 @@ const routes: Routes = [
   {path:'tasks', component:TasksComponent},
   {path:'projects', component:ProjectComponent},
   {path:'auth', component:AuthComponent},
-  {path:'char', component:CharjsComponent}
+
 
 
 
